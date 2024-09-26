@@ -21,11 +21,14 @@
         <tbody>
             
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
                 <td>
+                    <button>Prestar</button>
+                    <button>Editar</button>
+                    <button>Eliminar</button>
                 </td>
             </tr>
             

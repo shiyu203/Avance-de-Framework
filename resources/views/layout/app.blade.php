@@ -26,8 +26,8 @@
              Clientes
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/usuarios/usuarios">Clientes</a></li>
-              <li><a class="dropdown-item" href="/usuarios/nuevousuario">Crear Cliente</a></li>
+              <li><a class="dropdown-item" href="/usuarios/usuarios">clientes</a></li>
+              <li><a class="dropdown-item" href="/usuarios/nuevousuario">Crear cliente</a></li>
               
             </ul>
           </li>

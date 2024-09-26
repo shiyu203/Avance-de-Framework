@@ -32,7 +32,6 @@
             <select name="categoria" id="categorias">
                 
                 <option value=""></option>
-                @endforeach
             </select>
         </div>
         <div class="col-12 mt-2">
