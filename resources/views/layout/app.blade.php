@@ -12,7 +12,7 @@
     {{-- aqui va nuestro nuevo menú--}}   
     <nav class="navbar navbar-expand-lg bg-secondary navbar-dark">
         <div class="container-fluid">
-    <a class="navbar-brand" href="#">Prestamo de Equipos</a>
+    <a class="navbar-brand fw-bold" href="#">Prestamo de Equipos</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -27,55 +27,40 @@
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="/usuarios/usuarios">clientes</a></li>
-              <li><a class="dropdown-item" href="/usuarios/nuevousuario">Crear cliente</a></li>
+              <li><a class="dropdown-item" href="/usuarios/nuevousuario">Crear cliente</a></li>   
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+             Prestarmo
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/prestamo/prestamos">Prestamos</a></li>
+              <li><a class="dropdown-item" href="/prestamo/nuevopresta">Crear nuevo prestamo</a></li>
               
             </ul>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-             vacios
+            Equipo
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="/equipo/equipos">Equipos</a></li>
+              <li><a class="dropdown-item" href="/equipo/nuevoequipo">Crear equipo</a></li>
               
             </ul>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-             vacios
+             Admin
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="/administrador/admins">Administradores</a></li>
+              <li><a class="dropdown-item" href="/administrador/nuevoadmin">Crear admin</a></li>
               
             </ul>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-             vacios
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              
-            </ul>
-          </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-           vacios
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">cosas</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-           
-          </ul>
-        </li>
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-dark" type="submit">Search</button>
-    </form>
     </div>
   </div>
 </nav>

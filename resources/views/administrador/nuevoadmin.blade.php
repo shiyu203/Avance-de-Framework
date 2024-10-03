@@ -1,7 +1,9 @@
+<!DOCTYPE html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Nuevo Usuario</title>
+    <title>Registrar Usuario</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -32,49 +34,42 @@
             background-color: #5a32a1; /* Color más oscuro al pasar el ratón */
             border-color: #5a32a1; /* Color del borde más oscuro al pasar el ratón */
         }
+        .mb-5 {
+            margin-bottom: 3rem; /* Aumentar margen inferior */
+        }
     </style>
 </head>
 <body>
     @extends('layout.app')
 
-    @section('title','Nuevovliente')
+    @section('title','Clientes')
 
     @section('content')
 <div class="container">
     <div class="card">
         <div class="card-header text-center bg-dark text-white">
-            <h1 class="fw-bold">Agregar Nuevo Usuario</h1>
+            <h2 class="fw-bold">Registrar Administradores</h2>
         </div>
         <div class="card-body">
             <form action="tu_script.php" method="POST">
                 <div class="form-group">
-                    <label for="text">Nombre:</label>
-                    <input type="text" class="form-control" id="password" name="password" required>
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" required>
                 </div>
                 <div class="form-group">
-                    <label for="email">Correo Electrónico:</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
+                    <label for="correo">Correo Electrónico:</label>
+                    <input type="email" class="form-control" id="correo" name="correo" required>
                 </div>
-                <div class="form-group">
-                    <label for="carnet">Carnet:</label>
-                    <input type="text" class="form-control" id="carnet" name="carnet" required>
-                </div>
-                <div class="form-group">
-                    <label for="role">Rol:</label>
-                    <select class="form-control" id="role" name="role" required>
-                        <option value="estudiante">Estudiante</option>
-                        <option value="otro">Docente</option>
-                    </select>
-                </div>
-                <button class="btn btn-info text-white btn-sm" >Guardar</button>            </form>
-            @endsection
+                <button class="btn btn-info text-white btn-sm" >Guardar</button>
+            </form>
         </div>
     </div>
 </div>
-
+@endsection
 <!-- Bootstrap JS (opcional, para funcionalidades interactivas) -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
+</html>
