@@ -8,13 +8,12 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js']) 
 </head>
 <body>
-    @extends('layout.app') 
+    @extends('layouts.app') 
     {{-- Definimos el título --}}
     @section('title', 'Inicio') 
     {{-- Definimos el contenido --}}
     @section('content') 
-     <h1>Inicio</h1>
-     <h5>Inicio donde inicia todo</h5>
+    <h1>hola como estas sopilote muerto</h1>
     @endsection
 </body>
 </html>

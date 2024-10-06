@@ -1,4 +1,7 @@
-@extends('layout.app')
+<head>
+<title>Reportes</title>
+</head>
+@extends('layouts.app')
 
 @section('title','Clientes')
 
@@ -40,7 +43,7 @@
         <td>Josue Pineda</td>
 
         <td>
-            <a class="btn btn-warning btn-sm text-white " href="/equipo/editarequipo">Editar</a>
+            <a class="btn btn-warning btn-sm text-white " href="/reportes/nuevoreporte">Editar</a>
             <button class="btn btn-danger btn-sm">Eliminar</button>                    
         </td>
     </tr>

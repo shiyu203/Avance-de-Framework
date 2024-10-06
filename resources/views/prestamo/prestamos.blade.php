@@ -1,4 +1,5 @@
 <head>
+<title>Prestamos</title>
     <style>
         .centroM{
             margin: 2% 2%;
@@ -13,7 +14,7 @@
     </style>
 </head>
 <body>
-    @extends('layout.app')
+    @extends('layouts.app')
 
     @section('title','Clientes')
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrar Préstamo</title>
+    <title>Registrar equipo</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -37,7 +37,7 @@
     </style>
 </head>
 <body>
-    @extends('layout.app')
+    @extends('layouts.app')
 
     @section('title','Clientes')
 

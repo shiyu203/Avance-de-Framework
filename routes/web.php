@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
 use App\Models\Cliente;
 
-Route::get('/', function () { return view('home'); 
+Route::get('/home', function () { return view('home'); 
 });
 /**direciones de usuario */
 Route::get('/usuarios/usuarios', [ClienteController::class, 'index']); 
@@ -49,3 +49,7 @@ Route::get('/reportes/reportes', function () {  return view('reportes/reportes')
 Route::get('/reportes/nuevoreporte', function () {  return view('reportes/nuevoreporte'); 
 });
 
+
+Auth::routes();
+
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
