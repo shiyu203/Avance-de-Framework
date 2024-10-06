@@ -41,3 +41,11 @@ Route::get('/administrador/nuevoadmin', function () {  return view('administrado
 });
 Route::get('/administrador/editaradmin', function () {  return view('administrador/editaradmin'); 
 });
+
+/**reportes */
+Route::get('/reportes/reportes', function () {  return view('reportes/reportes'); 
+});
+
+Route::get('/reportes/nuevoreporte', function () {  return view('reportes/nuevoreporte'); 
+});
+

@@ -55,10 +55,12 @@
                 <td>{{ $item->carnet_dui}}</td>
                 <td>{{ $item->rol}}</td>
                 <td>
-                    <button class="btn btn-success text-white btn-sm" >Prestar</button>
+                    <button class="btn btn-success text-white btn-sm"  >Prestar</button>
                     <a class="btn btn-warning btn-sm text-white  " href="/usuarios/editarusuario">Editar</a>
                     <button class="btn btn-sm btn-danger" style="; color: white;">Bloquear</button>
-                    <button class="btn btn-danger btn-sm">Eliminar</button>                    
+                    <button class="btn btn-danger btn-sm">Eliminar</button>  
+                    <a class="btn btn-success btn-sm centroM" href="/reportes/nuevoreporte">PDF</a>
+                  
                 </td>
             </tr>
             
