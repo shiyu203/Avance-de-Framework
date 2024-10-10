@@ -15,4 +15,5 @@ class Branch extends Model
     'carnet_dui',
     'rol'
 ];
+
 }

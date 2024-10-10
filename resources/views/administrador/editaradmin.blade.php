@@ -51,17 +51,33 @@
             <h2 class="fw-bold">Editar Administradores</h2>
         </div>
         <div class="card-body">
-            <form action="tu_script.php" method="POST">
+            <form action="/administrador/{{ $administradores->id }}/editaradmin" method="POST">
+                @csrf
+                @method('PUT')
+            
                 <div class="form-group">
                     <label for="nombre">Nombre:</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                    <input type="text" class="form-control" id="nombre" name="nombre" required value="{{ $administradores->nombre }}">
+                    @error('nombre')
+                    <span class="invalid-feedback d-block" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
+            
                 <div class="form-group">
-                    <label for="correo">Correo Electrónico:</label>
-                    <input type="email" class="form-control" id="correo" name="correo" required>
+                    <label for="correo_electronico">Correo Electrónico:</label>
+                    <input type="email" class="form-control" id="correo_electronico" name="correo_electronico" required value="{{ $administradores->correo_electronico }}">
+                    @error('correo_electronico')
+                    <span class="invalid-feedback d-block" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
-                <button class="btn btn-info text-white btn-sm" >Guardar</button>
+            
+                <button class="btn btn-info text-white btn-sm">Guardar</button>
             </form>
+            
         </div>
     </div>
 </div>

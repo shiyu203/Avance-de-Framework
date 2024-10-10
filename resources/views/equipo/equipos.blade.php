@@ -48,20 +48,29 @@
     <tbody>
         
         <tr>
-            <td>2</td>
-            <td>laptop</td>
-            <td>equipo loco</td>
-            <td>en perfecto estado</td>
-            <td>mantenimiento</td>
+        @foreach ($equipos as $item) 
+            <td>{{ $item->id}}</td>
+            <td>{{ $item->nombre }}</td>
+            <td>{{ $item->descripcion }}</td>
+            <td>{{ $item->detalles_tecnicos}}</td>
+            <td>{{ $item->estado}}</td>
             <td>
-                <a class="btn btn-warning btn-sm text-white " href="/equipo/editarequipo">Editar</a>
-                <button class="btn btn-danger btn-sm">Eliminar</button>                    
+                <a class="btn btn-warning btn-sm text-white" href="/equipo/{{ $item->id }}/editarequipo">Editar</a>
+   
+                <button class="btn btn-danger btn-sm" url="/equipo/destroy/{{$item->id}}" onclick="destroy(this)" token="{{ csrf_token() }}">Eliminar</button>
             </td>
         </tr>
         
 
     </tbody>
+    @endforeach
 
 </table>
+@endsection
+@section('scripts')
+{{-- SweetAlert --}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{{-- JS --}}
+<script src="{{ asset('js/product.js') }}"></script>
 @endsection
 </body>

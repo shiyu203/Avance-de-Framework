@@ -49,18 +49,34 @@
             <h2 class="fw-bold">Registrar Equipos</h2>
         </div>
         <div class="card-body">
-            <form action="tu_script.php" method="POST">
+            <form action="/equipo/equipos" method="POST">
+                @csrf 
                 <div class="form-group">
                     <label for="nombre">Nombre:</label>
                     <input type="text" class="form-control" id="nombre" name="nombre" required>
+                    @error('nombre')
+                    <span class="invalid-feedback d-block" role="alert">
+                        <strong>{{$message}}</strong>
+                    </span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="descripcion">Descripción:</label>
                     <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
+                    @error('descripcion')
+                    <span class="invalid-feedback d-block" role="alert">
+                        <strong>{{$message}}</strong>
+                    </span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="detalles_tecnicos">Detalles Técnicos:</label>
                     <textarea class="form-control" id="detalles_tecnicos" name="detalles_tecnicos" rows="3" required></textarea>
+                    @error('detalles_tecnicos')
+                    <span class="invalid-feedback d-block" role="alert">
+                        <strong>{{$message}}</strong>
+                    </span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="estado">Estado:</label>
@@ -70,8 +86,13 @@
                         <option value="mantenimiento">Mantenimiento</option>
                         <option value="prestado">Prestado</option>
                     </select>
+                    @error('estado')
+                    <span class="invalid-feedback d-block" role="alert">
+                        <strong>{{$message}}</strong>
+                    </span>
+                    @enderror
                 
-                <button type="submit" class="btn btn-custom">Agregar Préstamo</button>
+                <button type="submit" class="btn btn-info text-white btn-sm">Agregar Préstamo</button>
             </form>
         </div>
     </div>

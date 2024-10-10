@@ -49,29 +49,51 @@
             <h2 class="fw-bold">Editar Equipos</h2>
         </div>
         <div class="card-body">
-            <form action="tu_script.php" method="POST">
+            <form action="/equipo/{{ $equipos->id }}/editarequipo" method="POST">
+                @csrf
+                @method('PUT') 
+
                 <div class="form-group">
                     <label for="nombre">Nombre:</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                    <input type="text" class="form-control" id="nombre" name="nombre" required value="{{$equipos->nombre}}">
+                    @error('nombre')
+                    <span class="invalid-feedback d-block" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="descripcion">Descripción:</label>
-                    <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
+                    <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required value="{{$equipos->descripcion}}"></textarea>
+                    @error('descripcion')
+                    <span class="invalid-feedback d-block" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="detalles_tecnicos">Detalles Técnicos:</label>
-                    <textarea class="form-control" id="detalles_tecnicos" name="detalles_tecnicos" rows="3" required></textarea>
+                    <textarea class="form-control" id="detalles_tecnicos" name="detalles_tecnicos" rows="3" required value="{{$equipos->detalles_tecnicos}}" ></textarea>
+                    @error('detalles_tecnicos')
+                    <span class="invalid-feedback d-block" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="estado">Estado:</label>
                     <select class="form-control" id="estado" name="estado" required>
-                        <option value="">Seleccionar estado</option>
-                        <option value="disponible">Disponible</option>
-                        <option value="mantenimiento">Mantenimiento</option>
-                        <option value="prestado">Prestado</option>
+                        <option value="disponible" {{ $equipos->estado == 'disponible' ? 'selected' : '' }}>Disponible</option>
+                        <option value="mantenimiento" {{ $equipos->estado == 'mantenimiento' ? 'selected' : '' }}>Mantenimiento</option>
+                        <option value="prestado"{{ $equipos->estado == 'prestado' ? 'selected' : '' }}>Prestado</option>
                     </select>
+                    @error('estado')
+                    <span class="invalid-feedback d-block" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 
-                <button type="submit" class="btn btn-custom">Agregar Préstamo</button>
+                <button type="submit" class="btn btn-info text-white btn-sm">Agregar Préstamo</button>
             </form>
         </div>
     </div>

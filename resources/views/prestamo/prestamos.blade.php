@@ -46,23 +46,23 @@
         </thead>
     </thead>
     <tbody>
-        
-        <tr>
-            <td>2</td>
-            <td>Josue Raul Pineda Santos</td>
-            <td>Proyector</td>
-            <td>23/09/2024</td>
-            <td>24/09/2024</td>
-            <td>
-                <a class="btn btn-success btn-sm ">Entregado</a>
-                <button class="btn btn-sm btn-danger" style=" color: white;">Cancelar</button>
-                <a class="btn btn-warning btn-sm text-white " href="/prestamo/editarprestamo">Editar</a>
-                <button class="btn btn-danger btn-sm">Eliminar</button>                    
-            </td>
-        </tr>
-        
-
+        @foreach ($prestamos as $item)
+            <tr>
+                <td>{{ $item->id }}</td>
+                <td>{{ $item->usuario_nombre }}</td>  <!-- Mostrar el nombre del usuario -->
+                <td>{{ $item->equipo_nombre }}</td>  <!-- Mostrar el nombre del equipo -->
+                <td>{{ $item->fecha_prestamo }}</td>
+                <td>{{ $item->fecha_devolucion }}</td>
+                <td>
+                    <a class="btn btn-success btn-sm">Entregado</a>
+                    <button class="btn btn-sm btn-danger" style="color: white;">Cancelar</button>
+                    <a class="btn btn-warning btn-sm text-white" href="/prestamo/editarprestamo">Editar</a>
+                    <button class="btn btn-danger btn-sm">Eliminar</button>
+                </td>
+            </tr>
+        @endforeach
     </tbody>
+    
 
 </table>
 @endsection
