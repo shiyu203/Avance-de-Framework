@@ -9,20 +9,20 @@ Route::get('/home', function () { return view('home');
 /**direciones de usuario */
 Route::get('/usuarios/usuarios', [ClienteController::class, 'index']); 
 
+// Ruta para mostrar la vista create.blade.php
+Route::get('/usuarios/nuevousuario', [ClienteController::class, 'create']); 
+// Ruta para mostrar la vista update.blade.php
+Route::get('/usuarios/{usuarios}/editarusuario', [ClienteController::class, 'edit'])->name('usuarios.edit');
+// Ruta para insertar usario
+Route::post('/usuarios/usuarios', [ClienteController::class, 'store']); 
+// Ruta para modificar usario
+Route::put('/usuarios/{usuarios}/editarusuario', [ClienteController::class, 'update']); 
+// Ruta para eliminar usario
+Route::delete('/usuarios/destroy/{id}', [ClienteController::class, 'destroy']); 
 
-Route::get('/usuarios/nuevousuario', function () {  return view('usuarios/nuevousuario'); 
-});
 
-Route::get('/usuarios/editarusuario', function () {  return view('usuarios/editarusuario'); 
-});
-/**direciones de pretamos */
-Route::get('/prestamo/prestamos', function () {  return view('prestamo/prestamos'); 
-});
 
-Route::get('/prestamo/nuevopresta', function () {  return view('prestamo/nuevopresta'); 
-});
-Route::get('/prestamo/editarprestamo', function () {  return view('prestamo/editarprestamo'); 
-});
+
 
 /**direciones de pretamos */
 Route::get('/equipo/equipos', function () {  return view('equipo/equipos'); 

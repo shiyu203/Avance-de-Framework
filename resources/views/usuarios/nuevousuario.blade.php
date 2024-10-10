@@ -46,27 +46,50 @@
             <h1 class="fw-bold">Agregar Nuevo Usuario</h1>
         </div>
         <div class="card-body">
-            <form action="tu_script.php" method="POST">
+            <form action="/usuarios/usuarios" method="POST">
+                @csrf  <!-- Esto genera el token CSRF necesario -->
                 <div class="form-group">
                     <label for="text">Nombre:</label>
-                    <input type="text" class="form-control" id="password" name="password" required>
+                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                    @error('nombre')
+                    <span class="invalid-feedback d-block" role="alert">
+                        <strong>{{$message}}</strong>
+                    </span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="email">Correo Electrónico:</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
+                    <input type="email" class="form-control" id="email" name="correo_electronico" required>
+                    @error('correo_electronico')
+                    <span class="invalid-feedback d-block" role="alert">
+                        <strong>{{$message}}</strong>
+                    </span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="carnet">Carnet:</label>
-                    <input type="text" class="form-control" id="carnet" name="carnet" required>
+                    <input type="text" class="form-control" id="carnet" name="carnet_dui" required>
+                    @error('carnet_dui')
+                    <span class="invalid-feedback d-block" role="alert">
+                        <strong>{{$message}}</strong>
+                    </span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="role">Rol:</label>
-                    <select class="form-control" id="role" name="role" required>
+                    <select class="form-control" id="role" name="rol" required>
                         <option value="estudiante">Estudiante</option>
-                        <option value="otro">Docente</option>
+                        <option value="docente">Docente</option>
                     </select>
+                    @error('rol')
+                    <span class="invalid-feedback d-block" role="alert">
+                        <strong>{{$message}}</strong>
+                    </span>
+                    @enderror
                 </div>
-                <button class="btn btn-info text-white btn-sm" >Guardar</button>            </form>
+                <button class="btn btn-info text-white btn-sm">Guardar</button>
+            </form>
+            
             @endsection
         </div>
     </div>

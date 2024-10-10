@@ -55,12 +55,13 @@
                 <td>{{ $item->carnet_dui}}</td>
                 <td>{{ $item->rol}}</td>
                 <td>
-                    <button class="btn btn-success text-white btn-sm"  >Prestar</button>
-                    <a class="btn btn-warning btn-sm text-white  " href="/usuarios/editarusuario">Editar</a>
-                    <button class="btn btn-sm btn-danger" style="; color: white;">Bloquear</button>
-                    <button class="btn btn-danger btn-sm">Eliminar</button>  
-                    <a class="btn btn-success btn-sm centroM" href="/reportes/nuevoreporte">PDF</a>
-                  
+                    <div>
+                        <button class="btn btn-success text-white btn-sm"  >Prestar</button>
+                        <a class="btn btn-warning btn-sm text-white" href="/usuarios/{{ $item->id }}/editarusuario">Editar</a>
+                        <button class="btn btn-sm btn-danger" style="; color: white;">Bloquear</button>
+                        <button class="btn btn-danger btn-sm" url="/usuarios/destroy/{{$item->id}}" onclick="destroy(this)" token="{{ csrf_token() }}">Eliminar</button>
+                        <button class="btn btn-success btn-sm centroM" href="/reportes/nuevoreporte">PDF</button>
+                    </div>
                 </td>
             </tr>
             
@@ -106,7 +107,7 @@
     {{-- SweetAlert --}}
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     {{-- JS --}}
-    <script src="{{ asset('js/cliente.js') }}"></script>
+    <script src="{{ asset('js/product.js') }}"></script>
     @endsection
 </body>
 
