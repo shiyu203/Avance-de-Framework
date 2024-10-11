@@ -42,39 +42,69 @@
 <body>
     @extends('layouts.app')
 
-    @section('title','Clientes')
-
+    @section('title', 'Editar Préstamo')
+    
     @section('content')
-
-<div class="container">
-    <div class="card">
-        <div class="card-header text-center bg-dark text-white">
-            <h2 class="fw-bold">Editar Préstamo</h2>
-        </div>
-        <div class="card-body ">
-            <form action="tu_script.php" method="POST">
-                <div class="form-group">
-                    <label for="usuario_id">Usuario:</label>
-                    <input type="text" class="form-control" id="usuario_id" name="usuario_id" required>
-                </div>
-                <div class="form-group">
-                    <label for="equipo_id">Equipo:</label>
-                    <input type="text" class="form-control" id="equipo_id" name="equipo_id" required>
-                </div>
-                <div class="form-group">
-                    <label for="fecha_prestamo">Fecha de Préstamo:</label>
-                    <input type="date" class="form-control" id="fecha_prestamo" name="fecha_prestamo" required>
-                </div>
-                <div class="form-group mb-5"> <!-- Cambiar clase a mb-5 aquí -->
-                    <label for="fecha_devolucion">Fecha de Devolución:</label>
-                    <input type="date" class="form-control" id="fecha_devolucion" name="fecha_devolucion" required>
-                </div>
-                <button class="btn btn-info text-white btn-sm" >Guardar</button>
-            </form>
+    <div class="container">
+        <div class="card">
+            <div class="card-header text-center bg-dark text-white">
+                <h2 class="fw-bold">Editar Préstamo</h2>
+            </div>
+            <div class="card-body">
+                <form action="/prestamo/{{ $prestamos->id }}/editarprestamo" method="POST">
+                    @csrf
+                    @method('PUT') <!-- Método PUT para actualizar -->
+    
+                    <!-- Campo para seleccionar equipo -->
+                    <div class="form-group">
+                        <label for="equipo_id">Equipo:</label>
+                        <select class="form-control" id="equipo_id" name="equipo_id" required>
+                            @foreach ($equipos as $equipo)
+                                <option value="{{ $equipo->id }}" 
+                                        {{ $prestamos->equipo_id == $equipo->id ? 'selected' : '' }}>
+                                    {{ $equipo->nombre }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('equipo_id')
+                            <span class="invalid-feedback d-block" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+    
+                    <!-- Fecha de Préstamo -->
+                    <div class="form-group">
+                        <label for="fecha_prestamo">Fecha de Préstamo:</label>
+                        <input type="date" class="form-control" id="fecha_prestamo" name="fecha_prestamo" 
+                               value="{{ $prestamos->fecha_prestamo }}" required>
+                        @error('fecha_prestamo')
+                            <span class="invalid-feedback d-block" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+    
+                    <!-- Fecha de Devolución -->
+                    <div class="form-group mb-5">
+                        <label for="fecha_devolucion">Fecha de Devolución:</label>
+                        <input type="date" class="form-control" id="fecha_devolucion" name="fecha_devolucion" 
+                               value="{{ $prestamos->fecha_devolucion }}" required>
+                        @error('fecha_devolucion')
+                            <span class="invalid-feedback d-block" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+    
+                    <!-- Botón de envío -->
+                    <button type="submit" class="btn btn-primary">Actualizar Préstamo</button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-@endsection
+    @endsection
+    
 <!-- Bootstrap JS (opcional, para funcionalidades interactivas) -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>

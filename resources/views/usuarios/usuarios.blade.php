@@ -56,8 +56,8 @@
                 <td>{{ $item->rol}}</td>
                 <td>
                     <div>
-                        <button class="btn btn-success text-white btn-sm"  >Prestar</button>
-                        <a class="btn btn-warning btn-sm text-white" href="/usuarios/{{ $item->id }}/editarusuario">Editar</a>
+                        <a class="btn btn-success text-white btn-sm" href="/prestamo/{{ $item->id }}/nuevopresta">Prestar</a>
+                            <a class="btn btn-warning btn-sm text-white" href="/usuarios/{{ $item->id }}/editarusuario">Editar</a>
                         <button class="btn btn-sm btn-danger" style="; color: white;">Bloquear</button>
                         <button class="btn btn-danger btn-sm" url="/usuarios/destroy/{{$item->id}}" onclick="destroy(this)" token="{{ csrf_token() }}">Eliminar</button>
                         <button class="btn btn-success btn-sm centroM" href="/reportes/nuevoreporte">PDF</button>

@@ -112,4 +112,8 @@ class ClienteController extends Controller
 
         return response()->json(['res' => true]);
     }
+    public function __construct()
+    {
+    $this->middleware('auth');
+    }
 }

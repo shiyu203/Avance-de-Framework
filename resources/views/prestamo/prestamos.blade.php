@@ -23,7 +23,6 @@
     <h5 class="fw-bold">Prestamos registrados permitidos</h5>
     <hr>
     <div class="centroM otros">
-        <a class="btn btn-success btn-sm centroM" href="/prestamo/nuevopresta">Agregar un prestamo</a>
         <div style="margin-left: auto;">
         <form class="d-flex" role="search">
             <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
@@ -56,8 +55,8 @@
                 <td>
                     <a class="btn btn-success btn-sm">Entregado</a>
                     <button class="btn btn-sm btn-danger" style="color: white;">Cancelar</button>
-                    <a class="btn btn-warning btn-sm text-white" href="/prestamo/editarprestamo">Editar</a>
-                    <button class="btn btn-danger btn-sm">Eliminar</button>
+                    <a class="btn btn-warning btn-sm text-white" href="/prestamo/{{ $item->id }}/editarprestamo">Editar</a>
+                    <button class="btn btn-danger btn-sm" url="/prestamo/destroy/{{$item->id}}" onclick="destroy(this)" token="{{ csrf_token() }}">Eliminar</button>
                 </td>
             </tr>
         @endforeach
@@ -65,5 +64,11 @@
     
 
 </table>
+@endsection
+@section('scripts')
+{{-- SweetAlert --}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{{-- JS --}}
+<script src="{{ asset('js/product.js') }}"></script>
 @endsection
 </body>

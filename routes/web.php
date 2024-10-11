@@ -67,6 +67,21 @@ Route::delete('/administrador/destroy/{id}', [AdministradoresController::class, 
 
 Route::get('/prestamo/prestamos', [PrestamoController::class, 'index']); 
 
+// Ruta para crear un nuevo préstamo
+Route::get('/prestamo/{usuarios}/nuevopresta', [PrestamoController::class, 'create'])->name('prestamos.nuevopresta');
+// Ruta para insertar usario
+Route::post('/prestamo/{usuarios}/nuevopresta', [PrestamoController::class, 'store'])->name('prestamos.store');
+// Ruta para editar
+Route::get('/prestamo/{prestamos}/editarprestamo', [PrestamoController::class, 'edit']);
+
+// Ruta para actualizar
+Route::put('/prestamo/{prestamos}/editarprestamo', [PrestamoController::class, 'update']);
+
+Route::delete('/prestamo/destroy/{id}', [AdministradoresController::class, 'destroy']); 
+
+
+
+/**asddddddddddddddddddddddd */
 
 
 /**reportes */
