@@ -68,12 +68,18 @@
                     <div class="form-group">
                         <label for="equipo_id">Equipo:</label>
                         <select class="form-control" id="equipo_id" name="equipo_id" required>
-                            <option value="">Seleccionar equipo</option>
+                            <option value="" disabled selected hidden>Seleccionar equipo</option>
                             @foreach ($equipos as $item)
                                 <option value="{{ $item->id }}">{{ $item->nombre }}</option>
                             @endforeach
                         </select>
+                        @error('equipo_id')
+                            <span class="invalid-feedback d-block" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
+                    
     
                     <!-- Fecha de Préstamo -->
                     <div class="form-group">

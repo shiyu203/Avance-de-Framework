@@ -60,7 +60,7 @@
                         <label for="equipo_id">Equipo:</label>
                         <select class="form-control" id="equipo_id" name="equipo_id" required>
                             @foreach ($equipos as $equipo)
-                                <option value="{{ $equipo->id }}" 
+                                <option value="{{ $equipo->id }} " 
                                         {{ $prestamos->equipo_id == $equipo->id ? 'selected' : '' }}>
                                     {{ $equipo->nombre }}
                                 </option>

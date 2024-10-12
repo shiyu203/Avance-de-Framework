@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('equipo_id')->constrained('equipos');
             $table->timestamp('fecha_prestamo');
             $table->timestamp('fecha_devolucion')->nullable();
+            $table->enum('estado', ['prestado', 'entregado']);  
             $table->timestamps();
         });
     }

@@ -81,7 +81,7 @@
                 <div class="form-group">
                     <label for="estado">Estado:</label>
                     <select class="form-control" id="estado" name="estado" required>
-                        <option value="">Seleccionar estado</option>
+                        <option value="" disabled selected hidden>Seleccionar equipo</option>
                         <option value="disponible">Disponible</option>
                         <option value="mantenimiento">Mantenimiento</option>
                         <option value="prestado">Prestado</option>

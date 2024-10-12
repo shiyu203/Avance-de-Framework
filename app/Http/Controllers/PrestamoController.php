@@ -35,38 +35,45 @@ class PrestamoController extends Controller
      */
     public function create(Cliente $usuarios)
     {
-        // Obtén todos los equipos disponibles o según tu lógica
-        $equipos = Equipo::all();
-
-        // Envía el usuario (en plural) y los equipos a la vista para crear un nuevo préstamo
+        // Filtrar equipos con estado 'disponible'
+        $equipos = Equipo::where('estado', 'disponible')->get();
+    
+        // Enviar el usuario y los equipos filtrados a la vista
         return view('prestamo.nuevopresta', compact('usuarios', 'equipos'));
     }
-
-
-
-
-    public function store(Request $request, $usuarios_id)
-    {
-        // Validación de los datos
-        $data = $request->validate([
-            'usuario_id' => 'required|exists:usuarios,id',
-            'equipo_id' => 'required|exists:equipos,id',
-            'fecha_prestamo' => 'required|date',
-            'fecha_devolucion' => 'required|date|after_or_equal:fecha_prestamo',
-        ]);
     
-        // Crear un nuevo préstamo (ya que este método parece ser para crear, no actualizar)
-        $prestamos = new Prestamo;
-        $prestamos->usuario_id = $usuarios_id;  // O usar $data['usuario_id'] si viene del formulario
-        $prestamos->equipo_id = $data['equipo_id'];
-        $prestamos->fecha_prestamo = $data['fecha_prestamo'];
-        $prestamos->fecha_devolucion = $data['fecha_devolucion'];  // Corrección del campo 'fecha_devolucion'
-        $prestamos->created_at = now();  // O 'updated_at' si se está actualizando
-        $prestamos->save();
-    
-        // Redirigir a la lista de préstamos con un mensaje de éxito
-        return redirect('/prestamo/prestamos')->with('success', 'Préstamo registrado exitosamente');
-    }
+
+
+
+
+    public function store(Request $request, $usuarios_id) 
+{
+    // Validación de los datos
+    $data = $request->validate([
+        'usuario_id' => 'required|exists:usuarios,id',
+        'equipo_id' => 'required|exists:equipos,id',
+        'fecha_prestamo' => 'required|date',
+        'fecha_devolucion' => 'required|date|after_or_equal:fecha_prestamo',
+    ]);
+
+    // Crear un nuevo préstamo
+    $prestamos = new Prestamo;
+    $prestamos->usuario_id = $usuarios_id;  // O usar $data['usuario_id'] si viene del formulario
+    $prestamos->equipo_id = $data['equipo_id'];
+    $prestamos->fecha_prestamo = $data['fecha_prestamo'];
+    $prestamos->fecha_devolucion = $data['fecha_devolucion'];
+    $prestamos->created_at = now();  // O 'updated_at' si se está actualizando
+    $prestamos->save();
+
+    // Después de guardar el préstamo, cambiar el estado del equipo a 'prestado'
+    $equipo = Equipo::find($data['equipo_id']);
+    $equipo->estado = 'prestado';
+    $equipo->save();
+
+    // Redirigir a la lista de préstamos con un mensaje de éxito
+    return redirect('/prestamo/prestamos')->with('success', 'Préstamo registrado exitosamente y equipo marcado como prestado.');
+}
+
     
 
 
@@ -83,39 +90,60 @@ class PrestamoController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(Prestamo $prestamos)
-    {
-        // Listar equipos para llenar el select
-        $equipos = Equipo::all();
-    
-        // Mostrar vista update.blade.php junto al listado de equipos
-        return view('prestamo.editarprestamo')->with(['prestamos' => $prestamos, 'equipos' => $equipos]);
-    }
+{
+    // Filtrar equipos solo con estado 'disponible'
+    $equipos = Equipo::where('estado', 'disponible')->get();
+
+    // Mostrar la vista de edición junto al listado de equipos disponibles
+    return view('prestamo.editarprestamo')->with([
+        'prestamos' => $prestamos, 
+        'equipos' => $equipos
+    ]);
+}
+
     
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Prestamo $prestamos)
-{
-    // Validar campos
-    $data = $request->validate([
-        'equipo_id' => 'required|exists:equipos,id',
-        'fecha_prestamo' => 'required|date',
-        'fecha_devolucion' => 'required|date|after_or_equal:fecha_prestamo'
-    ]);
-
-    // Reemplazar datos anteriores por los nuevos
-    $prestamos->equipo_id = $data['equipo_id'];
-    $prestamos->fecha_prestamo = $data['fecha_prestamo'];
-    $prestamos->fecha_devolucion = $data['fecha_devolucion'];
-    $prestamos->updated_at = now();
-
-    // Enviar a guardar la actualización
-    $prestamos->save();
-
-    // Redireccionar a la lista de préstamos con un mensaje de éxito
-    return redirect('/prestamo/prestamos')->with('success', 'Préstamo actualizado exitosamente');
-}
+    {
+        // Validar campos
+        $data = $request->validate([
+            'equipo_id' => 'required|exists:equipos,id',
+            'fecha_prestamo' => 'required|date',
+            'fecha_devolucion' => 'required|date|after_or_equal:fecha_prestamo'
+        ]);
+    
+        // Cambiar el estado del equipo previamente asociado al préstamo a "disponible"
+        if ($prestamos->equipo_id != $data['equipo_id']) {
+            $equipoAnterior = Equipo::find($prestamos->equipo_id);
+            if ($equipoAnterior) {
+                $equipoAnterior->estado = 'disponible';
+                $equipoAnterior->save();
+            }
+        }
+    
+        // Reemplazar los datos del préstamo por los nuevos
+        $prestamos->equipo_id = $data['equipo_id'];
+        $prestamos->fecha_prestamo = $data['fecha_prestamo'];
+        $prestamos->fecha_devolucion = $data['fecha_devolucion'];
+        $prestamos->updated_at = now();
+    
+        // Guardar la actualización del préstamo
+        $prestamos->save();
+    
+        // Cambiar el estado del nuevo equipo seleccionado a "prestado"
+        $equipoNuevo = Equipo::find($data['equipo_id']);
+        if ($equipoNuevo) {
+            $equipoNuevo->estado = 'prestado';
+            $equipoNuevo->save();
+        }
+    
+        // Redireccionar a la lista de préstamos con un mensaje de éxito
+        return redirect('/prestamo/prestamos')->with('success', 'Préstamo actualizado exitosamente y estado de los equipos modificado.');
+    }
+    
 
 
 
