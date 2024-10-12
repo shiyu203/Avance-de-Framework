@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('correo_electronico');
             $table->string('carnet_dui');
             $table->enum('rol', ['estudiante', 'docente']);
+            $table->enum('estado', ['autorizado', 'bloqueado']);
             $table->timestamps();
         });
     }

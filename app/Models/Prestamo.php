@@ -11,7 +11,7 @@ class Prestamo extends Model
     
     protected $table = 'prestamos';  // Nombre de la tabla
     protected $primaryKey = 'id';  // Llave primaria de la tabla
-    protected $fillable = ['usuario_id', 'equipo_id', 'fecha_prestamo', 'fecha_devolucion'];  // Campos permitidos
+    protected $fillable = ['usuario_id', 'equipo_id', 'fecha_prestamo', 'fecha_devolucion', 'estado'];  // Campos permitidos
 
     // Relación con el modelo Usuario
     public function usuario()

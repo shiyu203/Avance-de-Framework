@@ -14,20 +14,22 @@ class ClienteController extends Controller
      */
     public function index()
     {
-
-        // Listar todos los productos 
+        // Listar solo los usuarios autorizados
         $usuarios = Cliente::select(
             "usuarios.id",
             "usuarios.nombre",
             "usuarios.correo_electronico",
             "usuarios.carnet_dui",
-            "usuarios.rol"
+            "usuarios.rol",
+            "usuarios.estado"
         )
-            ->get();
-        // dd($productos);
-        // Mostrar vista show.blade.php junto al listado de productos 
+        ->where('estado', 'autorizado') // Filtrar solo los autorizados
+        ->get();
+    
+        // Mostrar vista junto al listado de usuarios
         return view('/usuarios/usuarios')->with(['usuarios' => $usuarios]);
     }
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -45,18 +47,23 @@ class ClienteController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $data = $request->validate([
-            'nombre' => 'required',
-            'correo_electronico' => 'required|email', // Agregué validación de email
-            'carnet_dui' => 'required', // Quité el espacio extra
-            'rol' => 'required|in:estudiante,docente' // Validar que el rol sea uno de los valores permitidos
-        ]);
+{
+    $data = $request->validate([
+        'nombre' => 'required',
+        'correo_electronico' => 'required|email',
+        'carnet_dui' => 'required',
+        'rol' => 'required|in:estudiante,docente'
+    ]);
 
-        Cliente::create($data);
+    // Establecer el estado como 'autorizado'
+    $data['estado'] = 'autorizado';
 
-        return redirect('/usuarios/usuarios');
-    }
+    // Crear el nuevo usuario
+    Cliente::create($data);
+
+    return redirect('/usuarios/usuarios');
+}
+
 
 
     /**
@@ -112,6 +119,65 @@ class ClienteController extends Controller
 
         return response()->json(['res' => true]);
     }
+
+   
+    public function bloqueados()
+    {
+        // Listar solo los usuarios bloqueados
+        $usuarios = Cliente::select( // Usando Cliente como modelo
+            "usuarios.id",
+            "usuarios.nombre",
+            "usuarios.correo_electronico",
+            "usuarios.carnet_dui",
+            "usuarios.rol",
+            "usuarios.estado"
+        )
+        ->where('estado', 'bloqueado') // Filtrar solo los bloqueados
+        ->get();
+    
+        // Mostrar vista junto al listado de usuarios bloqueados
+        return view('/usuarios/usuariosbloqueados')->with(['usuarios' => $usuarios]);
+    }
+    
+
+    public function bloquear($id)
+    {
+        // Buscar el usuario por ID
+        $usuarios = Cliente::find($id); // Manteniendo el modelo como Cliente
+    
+        // Validar si el usuario existe
+        if (!$usuarios) {
+            return redirect()->back()->with('error', 'Usuario no encontrado');
+        }
+    
+        // Cambiar el estado del usuario a 'bloqueado'
+        $usuarios->estado = 'bloqueado'; // Asegúrate de usar 'bloqueado'
+        $usuarios->save();
+    
+        // Redirigir a la lista de usuarios bloqueados
+        return redirect('/usuarios/usuariosbloqueados')->with('success', 'Usuario bloqueado exitosamente.');
+    }
+    
+    public function quitarBloqueo($id)
+{
+    // Buscar el usuario por ID
+    $usuario = Cliente::find($id); // Manteniendo el modelo como Cliente
+
+    // Validar si el usuario existe
+    if (!$usuario) {
+        return redirect()->back()->with('error', 'Usuario no encontrado');
+    }
+
+    // Cambiar el estado del usuario a 'autorizado'
+    $usuario->estado = 'autorizado'; // Asegúrate de usar 'autorizado'
+    $usuario->save();
+
+    // Redirigir a la lista de usuarios autorizados
+    return redirect('/usuarios/usuarios')->with('success', 'Usuario autorizado exitosamente.');
+}
+
+
+
     public function __construct()
     {
     $this->middleware('auth');

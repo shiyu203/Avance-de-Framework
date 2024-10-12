@@ -54,6 +54,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="/usuarios/usuarios">clientes</a></li>
+                                    <li><a class="dropdown-item" href="/usuarios/usuariosbloqueados">clientes bloqueados</a></li>
                                     <li><a class="dropdown-item" href="/usuarios/nuevousuario">Crear cliente</a></li>
                                 </ul>
                             </li>
@@ -62,7 +63,8 @@
                                     Prestamo
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="/prestamo/prestamos">Prestamos</a></li>
+                                    <li><a class="dropdown-item" href="/prestamo/prestamos">Prestamos prestados</a></li>
+                                    <li><a class="dropdown-item" href="/prestamo/prestamosen">Prestamos entregados</a></li>
                                     <li><a class="dropdown-item" href="/prestamo/nuevopresta">Crear nuevo prestamo</a></li>
                                 </ul>
                             </li>

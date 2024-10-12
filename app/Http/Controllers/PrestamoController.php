@@ -13,22 +13,26 @@ class PrestamoController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        // Listar todos los préstamos con sus relaciones
-        $prestamos = Prestamo::select(
-            "prestamos.id",  // Seleccionamos el ID del préstamo
-            "usuarios.nombre as usuario_nombre",  // El nombre del usuario desde la tabla usuarios
-            "equipos.nombre as equipo_nombre",  // El nombre del equipo desde la tabla equipos
-            "prestamos.fecha_prestamo",  // Fecha del préstamo
-            "prestamos.fecha_devolucion"  // Fecha de devolución
-        )
-            ->join("usuarios", "usuarios.id", "=", "prestamos.usuario_id")  // Unimos la tabla usuarios
-            ->join("equipos", "equipos.id", "=", "prestamos.equipo_id")  // Unimos la tabla equipos
-            ->get();
+{
+    // Listar todos los préstamos que están en estado 'prestado'
+    $prestamos = Prestamo::select(
+        "prestamos.id",  // Seleccionamos el ID del préstamo
+        "usuarios.nombre as usuario_nombre",  // El nombre del usuario desde la tabla usuarios
+        "equipos.nombre as equipo_nombre",  // El nombre del equipo desde la tabla equipos
+        "prestamos.fecha_prestamo",  // Fecha del préstamo
+        "prestamos.fecha_devolucion",  // Fecha de devolución
+        "prestamos.estado"  // estado
+    )
+        ->join("usuarios", "usuarios.id", "=", "prestamos.usuario_id")  // Unimos la tabla usuarios
+        ->join("equipos", "equipos.id", "=", "prestamos.equipo_id")  // Unimos la tabla equipos
+        ->where("prestamos.estado", "prestado")  // Solo préstamos en estado 'prestado'
+        ->get();
 
-        // Mostrar vista junto al listado de préstamos
-        return view('prestamo.prestamos')->with(['prestamos' => $prestamos]);
-    }
+    // Mostrar vista junto al listado de préstamos
+    return view('prestamo.prestamos')->with(['prestamos' => $prestamos]);
+}
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -47,32 +51,34 @@ class PrestamoController extends Controller
 
 
     public function store(Request $request, $usuarios_id) 
-{
-    // Validación de los datos
-    $data = $request->validate([
-        'usuario_id' => 'required|exists:usuarios,id',
-        'equipo_id' => 'required|exists:equipos,id',
-        'fecha_prestamo' => 'required|date',
-        'fecha_devolucion' => 'required|date|after_or_equal:fecha_prestamo',
-    ]);
-
-    // Crear un nuevo préstamo
-    $prestamos = new Prestamo;
-    $prestamos->usuario_id = $usuarios_id;  // O usar $data['usuario_id'] si viene del formulario
-    $prestamos->equipo_id = $data['equipo_id'];
-    $prestamos->fecha_prestamo = $data['fecha_prestamo'];
-    $prestamos->fecha_devolucion = $data['fecha_devolucion'];
-    $prestamos->created_at = now();  // O 'updated_at' si se está actualizando
-    $prestamos->save();
-
-    // Después de guardar el préstamo, cambiar el estado del equipo a 'prestado'
-    $equipo = Equipo::find($data['equipo_id']);
-    $equipo->estado = 'prestado';
-    $equipo->save();
-
-    // Redirigir a la lista de préstamos con un mensaje de éxito
-    return redirect('/prestamo/prestamos')->with('success', 'Préstamo registrado exitosamente y equipo marcado como prestado.');
-}
+    {
+        // Validación de los datos
+        $data = $request->validate([
+            'usuario_id' => 'required|exists:usuarios,id',
+            'equipo_id' => 'required|exists:equipos,id',
+            'fecha_prestamo' => 'required|date',
+            'fecha_devolucion' => 'required|date|after_or_equal:fecha_prestamo',
+        ]);
+    
+        // Crear un nuevo préstamo
+        $prestamos = new Prestamo;
+        $prestamos->usuario_id = $usuarios_id;  // O usar $data['usuario_id'] si viene del formulario
+        $prestamos->equipo_id = $data['equipo_id'];
+        $prestamos->fecha_prestamo = $data['fecha_prestamo'];
+        $prestamos->fecha_devolucion = $data['fecha_devolucion'];
+        $prestamos->estado = 'prestado';  // Nuevo campo estado con valor predeterminado 'prestado'
+        $prestamos->created_at = now();
+        $prestamos->save();
+    
+        // Después de guardar el préstamo, cambiar el estado del equipo a 'prestado'
+        $equipo = Equipo::find($data['equipo_id']);
+        $equipo->estado = 'prestado';
+        $equipo->save();
+    
+        // Redirigir a la lista de préstamos con un mensaje de éxito
+        return redirect('/prestamo/prestamos')->with('success', 'Préstamo registrado exitosamente y equipo marcado como prestado.');
+    }
+    
 
     
 
@@ -156,6 +162,50 @@ class PrestamoController extends Controller
 
         return response()->json(['res' => true]);
     }
+    public function entrega()
+{
+    // Listar todos los préstamos que están en estado 'entregado'
+    $prestamos = Prestamo::select(
+        "prestamos.id",  // Seleccionamos el ID del préstamo
+        "usuarios.nombre as usuario_nombre",  // El nombre del usuario desde la tabla usuarios
+        "equipos.nombre as equipo_nombre",  // El nombre del equipo desde la tabla equipos
+        "prestamos.fecha_prestamo",  // Fecha del préstamo
+        "prestamos.fecha_devolucion", // Fecha de devolución
+        "prestamos.estado"  // Fecha de devolución
+    )
+        ->join("usuarios", "usuarios.id", "=", "prestamos.usuario_id")  // Unimos la tabla usuarios
+        ->join("equipos", "equipos.id", "=", "prestamos.equipo_id")  // Unimos la tabla equipos
+        ->where("prestamos.estado", "entregado")  // Solo préstamos en estado 'entregado'
+        ->get();
+
+    // Mostrar vista junto al listado de préstamos entregados
+    return view('prestamo.prestamosen')->with(['prestamos' => $prestamos]);
+}
+
+public function marcarComoEntregado($id)
+{
+    // Buscar el préstamo por ID
+    $prestamo = Prestamo::find($id);
+
+    // Validar si el préstamo existe
+    if (!$prestamo) {
+        return redirect()->back()->with('error', 'Préstamo no encontrado');
+    }
+
+    // Cambiar el estado del préstamo a 'entregado'
+    $prestamo->estado = 'entregado';
+    $prestamo->save();
+
+    // Cambiar el estado del equipo a 'disponible'
+    $equipo = Equipo::find($prestamo->equipo_id);
+    $equipo->estado = 'disponible';
+    $equipo->save();
+
+    // Redirigir a la lista de préstamos entregados
+    return redirect('/prestamo/prestamosen')->with('success', 'Préstamo marcado como entregado y equipo actualizado a disponible.');
+}
+
+
     public function __construct()
     {
     $this->middleware('auth');

@@ -18,7 +18,7 @@
     @section('title','Clientes')
 
     @section('content')
-    <h1 class="fw-bold">Clientes</h1>
+    <h1 class="fw-bold">Clientes bloqueados</h1>
     <h5 class="fw-bold">Usuarios registrados permitidos y no permitidos</h5>
     <hr>
    
@@ -56,25 +56,15 @@
                 <td>{{ $item->carnet_dui}}</td>
                 <td>{{ $item->rol}}</td>
                 <td>{{ $item->estado}}</td>
+             
                 <td>
-                    <div>
-                        <a class="btn btn-success text-white btn-sm" href="/prestamo/{{ $item->id }}/nuevopresta">Prestar</a>
-                         <a class="btn btn-warning btn-sm text-white" href="/usuarios/{{ $item->id }}/editarusuario">Editar</a>
-                         <a href="#" class="btn btn-danger btn-sm" onclick="event.preventDefault(); 
-                            fetch('{{ route('usuarios.bloquear', $item->id) }}', {
-                                method: 'PUT',
-                                headers: {
-                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                                }
-                            }).then(response => {
-                                if (response.redirected) {
-                                    window.location.href = response.url;
-                                }
-                            });">Bloquear</a>
-
-                        <button class="btn btn-danger btn-sm" url="/usuarios/destroy/{{$item->id}}" onclick="destroy(this)" token="{{ csrf_token() }}">Eliminar</button>
-                        <button class="btn btn-success btn-sm centroM" href="/reportes/nuevoreporte">PDF</button>
-                    </div>
+                    <button class="btn btn-success text-white btn-sm" onclick="event.preventDefault(); 
+                    document.getElementById('quitar-bloqueo-form-{{ $item->id }}').submit();">Quitar</button>
+                <form id="quitar-bloqueo-form-{{ $item->id }}" action="{{ route('usuarios.quitar-bloqueo', $item->id) }}" method="POST" style="display:none;">
+                    @csrf
+                    @method('PUT')
+                </form>
+                
                 </td>
             </tr>
             

@@ -40,6 +40,7 @@
                 <th class="bg-dark text-white" >Equipo</th>
                 <th class="bg-dark text-white" >Fecha de prestamo</th>
                 <th class="bg-dark text-white" >Fecha de devolucion</th>
+                <th class="bg-dark text-white" >Estado</th>
                 <th class="bg-dark text-white" >ACCIONES</th>
             </tr>
         </thead>
@@ -52,8 +53,9 @@
                 <td>{{ $item->equipo_nombre }}</td>  <!-- Mostrar el nombre del equipo -->
                 <td>{{ $item->fecha_prestamo }}</td>
                 <td>{{ $item->fecha_devolucion }}</td>
+                <td>{{ $item->estado }}</td>
                 <td>
-                    <a class="btn btn-success btn-sm">Entregado</a>
+                    <a href="{{ route('prestamo.entregado', $item->id) }}" class="btn btn-success btn-sm">Entregado</a>
                     <button class="btn btn-sm btn-danger" style="color: white;">Cancelar</button>
                     <a class="btn btn-warning btn-sm text-white" href="/prestamo/{{ $item->id }}/editarprestamo">Editar</a>
                     <button class="btn btn-danger btn-sm" url="/prestamo/destroy/{{$item->id}}" onclick="destroy(this)" token="{{ csrf_token() }}">Eliminar</button>

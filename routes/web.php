@@ -14,6 +14,7 @@ Route::get('/home', function () { return view('home');
 });
 /**direciones de usuario */
 Route::get('/usuarios/usuarios', [ClienteController::class, 'index']); 
+Route::get('/usuarios/usuariosbloqueados', [ClienteController::class, 'bloqueados']); 
 
 // Ruta para mostrar la vista create.blade.php
 Route::get('/usuarios/nuevousuario', [ClienteController::class, 'create']); 
@@ -23,6 +24,12 @@ Route::get('/usuarios/{usuarios}/editarusuario', [ClienteController::class, 'edi
 Route::post('/usuarios/usuarios', [ClienteController::class, 'store']); 
 // Ruta para modificar usario
 Route::put('/usuarios/{usuarios}/editarusuario', [ClienteController::class, 'update']); 
+
+Route::put('/usuarios/{id}/bloquear', [ClienteController::class, 'bloquear'])->name('usuarios.bloquear');
+Route::put('/usuarios/{id}/quitar-bloqueo', [ClienteController::class, 'quitarBloqueo'])->name('usuarios.quitar-bloqueo');
+
+
+
 // Ruta para eliminar usario
 Route::delete('/usuarios/destroy/{id}', [ClienteController::class, 'destroy']); 
 
@@ -65,7 +72,9 @@ Route::delete('/administrador/destroy/{id}', [AdministradoresController::class, 
 
 /**asddddddddddddddddddddddd */
 
-Route::get('/prestamo/prestamos', [PrestamoController::class, 'index']); 
+Route::get('/prestamo/prestamos', [PrestamoController::class, 'index']);   
+Route::get('/prestamo/prestamosen', [PrestamoController::class, 'entrega']); 
+
 
 // Ruta para crear un nuevo préstamo
 Route::get('/prestamo/{usuarios}/nuevopresta', [PrestamoController::class, 'create'])->name('prestamos.nuevopresta');
@@ -76,6 +85,9 @@ Route::get('/prestamo/{prestamos}/editarprestamo', [PrestamoController::class, '
 
 // Ruta para actualizar
 Route::put('/prestamo/{prestamos}/editarprestamo', [PrestamoController::class, 'update']);
+
+Route::get('/prestamo/{id}/entregado', [PrestamoController::class, 'marcarComoEntregado'])->name('prestamo.entregado');
+
 
 Route::delete('/prestamo/destroy/{id}', [AdministradoresController::class, 'destroy']); 
 
