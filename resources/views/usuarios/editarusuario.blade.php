@@ -53,7 +53,7 @@
 
                     <div class="form-group">
                         <label for="nombre">Nombre:</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" required value="{{ $usuarios->nombre }}">
+                        <input type="text" class="form-control" id="nombre" name="nombre" maxlength="22" required value="{{ $usuarios->nombre }}">
                         @error('nombre')
                         <span class="invalid-feedback d-block" role="alert">
                             <strong>{{ $message }}</strong>

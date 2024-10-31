@@ -21,7 +21,8 @@
     <h1 class="fw-bold">Clientes</h1>
     <h5 class="fw-bold">Usuarios registrados permitidos y no permitidos</h5>
     <hr>
-   
+    <a class="btn btn-success btn-sm" href="{{ route('mostrarFormulario') }}">Reporte de todos usuarios</a>
+
     <div class="centroM otros">
             <a class="btn btn-success btn-sm centroM" href="/usuarios/nuevousuario">Agregar un cliente</a>
         <div style="margin-left: auto;">
@@ -73,7 +74,6 @@
                             });">Bloquear</a>
 
                         <button class="btn btn-danger btn-sm" url="/usuarios/destroy/{{$item->id}}" onclick="destroy(this)" token="{{ csrf_token() }}">Eliminar</button>
-                        <button class="btn btn-success btn-sm centroM" href="/reportes/nuevoreporte">PDF</button>
                     </div>
                 </td>
             </tr>

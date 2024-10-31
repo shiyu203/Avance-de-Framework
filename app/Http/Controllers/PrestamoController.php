@@ -156,12 +156,7 @@ class PrestamoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        Equipo::destroy($id);
 
-        return response()->json(['res' => true]);
-    }
     public function entrega()
 {
     // Listar todos los préstamos que están en estado 'entregado'
@@ -204,10 +199,30 @@ public function marcarComoEntregado($id)
     // Redirigir a la lista de préstamos entregados
     return redirect('/prestamo/prestamosen')->with('success', 'Préstamo marcado como entregado y equipo actualizado a disponible.');
 }
+public function destroy(string $id)
+{
+    // Obtener el préstamo antes de eliminarlo
+    $prestamo = Prestamo::findOrFail($id);
+
+    // Obtener el equipo asociado al préstamo
+    $equipo = Equipo::findOrFail($prestamo->equipo_id);
+
+    // Cambiar el estado del equipo a 'disponible'
+    $equipo->estado = 'disponible';
+    $equipo->save();
+
+    // Eliminar el préstamo
+    $prestamo->delete();
+
+    // Retornar respuesta
+    return response()->json(['res' => true]);
+}
+
 
 
     public function __construct()
     {
     $this->middleware('auth');
     }
+    
 }

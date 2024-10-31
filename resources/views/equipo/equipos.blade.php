@@ -19,10 +19,11 @@
     @section('title','Clientes')
 
     @section('content')
-    <h1 class="fw-bold">Prestamo</h1>
-    <h5 class="fw-bold">Prestamos registrados permitidos</h5>
+    <h1 class="fw-bold">Equipos</h1>
+    <h5 class="fw-bold">Equipos registrados</h5>
     <hr>
     <div>
+        <a class="btn btn-success btn-sm" href="{{ route('mostrarFormularioEquipos') }}">Reporte de todos Equipos</a>
         <div class="centroM otros">
             <a class="btn btn-success btn-sm centroM" href="/equipo/nuevoequipo">Agregar un equipo</a>
             <div style="margin-left: auto;">

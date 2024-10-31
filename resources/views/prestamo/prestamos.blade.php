@@ -22,6 +22,8 @@
     <h1 class="fw-bold">Prestamo</h1>
     <h5 class="fw-bold">Prestamos registrados permitidos</h5>
     <hr>
+    <a class="btn btn-success btn-sm" href="{{ route('mostrarFormularioPrestamo') }}">Reporte de todos préstamos</a>
+
     <div class="centroM otros">
         <div style="margin-left: auto;">
         <form class="d-flex" role="search">

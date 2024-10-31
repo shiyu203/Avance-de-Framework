@@ -56,6 +56,7 @@
                     <td>{{ $item->estado }}</td>
                     <td>
                         <button class="btn btn-danger btn-sm" url="/prestamo/destroy/{{$item->id}}" onclick="destroy(this)" token="{{ csrf_token() }}">Eliminar</button>
+
                     </td>
                 </tr>
             @endforeach

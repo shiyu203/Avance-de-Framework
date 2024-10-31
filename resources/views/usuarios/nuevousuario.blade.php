@@ -50,7 +50,7 @@
                 @csrf  <!-- Esto genera el token CSRF necesario -->
                 <div class="form-group">
                     <label for="text">Nombre:</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                    <input type="text" class="form-control" id="nombre" name="nombre"   maxlength="22" required>
                     @error('nombre')
                     <span class="invalid-feedback d-block" role="alert">
                         <strong>{{$message}}</strong>
@@ -68,7 +68,7 @@
                 </div>
                 <div class="form-group">
                     <label for="carnet">Carnet:</label>
-                    <input type="text" class="form-control" id="carnet" name="carnet_dui" required>
+                    <input type="text" class="form-control" id="carnet" name="carnet_dui"  required>
                     @error('carnet_dui')
                     <span class="invalid-feedback d-block" role="alert">
                         <strong>{{$message}}</strong>
@@ -94,10 +94,26 @@
         </div>
     </div>
 </div>
+<script>
+    document.getElementById('nombre').addEventListener('input', function (event) {
+        const regex = /^[a-zA-Z\s]*$/;  // Solo letras y espacios permitidos
+        const nombreInput = event.target;
 
+        if (!regex.test(nombreInput.value)) {
+            nombreInput.setCustomValidity("El nombre solo puede contener letras y espacios, sin números ni caracteres especiales.");
+        } else {
+            nombreInput.setCustomValidity("");  // Si es válido, restablecemos el mensaje
+        }
+
+        if (nombreInput.value.length > 22) {
+            nombreInput.value = nombreInput.value.substring(0, 22);  // Cortamos el valor si supera los 22 caracteres
+        }
+    });
+</script>
 <!-- Bootstrap JS (opcional, para funcionalidades interactivas) -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
 </body>

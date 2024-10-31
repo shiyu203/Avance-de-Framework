@@ -65,7 +65,6 @@
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="/prestamo/prestamos">Prestamos prestados</a></li>
                                     <li><a class="dropdown-item" href="/prestamo/prestamosen">Prestamos entregados</a></li>
-                                    <li><a class="dropdown-item" href="/prestamo/nuevopresta">Crear nuevo prestamo</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">

@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\AdministradoresController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
@@ -9,6 +9,8 @@ use App\Models\Administradores;
 use App\Models\Cliente;
 use App\Models\Prestamo;
 use App\Models\Equipo;
+use App\Models\Reporte;
+
 
 Route::get('/home', function () { return view('home'); 
 });
@@ -53,6 +55,10 @@ Route::put('/equipo/{equipos}/editarequipo', [EquipoController::class, 'update']
 // Ruta para eliminar usario
 Route::delete('/equipo/destroy/{id}', [EquipoController::class, 'destroy']); 
 
+Route::get('/equipo/reporteequipos', [ReportController::class, 'mostrarFormularioEquipos'])->name('mostrarFormularioEquipos');
+Route::post('/equipo/generarReporteEquipos', [ReportController::class, 'generarReporteEquipos'])->name('generarReporteEquipos');
+
+
 /**asddddddddddddddddddddddd */
 
 /**direciones de administradores*/
@@ -89,19 +95,26 @@ Route::put('/prestamo/{prestamos}/editarprestamo', [PrestamoController::class, '
 Route::get('/prestamo/{id}/entregado', [PrestamoController::class, 'marcarComoEntregado'])->name('prestamo.entregado');
 
 
-Route::delete('/prestamo/destroy/{id}', [AdministradoresController::class, 'destroy']); 
+Route::delete('/prestamo/destroy/{id}', [PrestamoController::class, 'destroy']); 
 
 
+// Mostrar el formulario para generar el reporte de préstamos
+Route::get('/prestamos/reporteprestamo', [ReportController::class, 'mostrarFormularioPrestamo'])->name('mostrarFormularioPrestamo');
 
+// Generar el reporte de préstamos
+Route::post('/prestamos/generar-reporte', [ReportController::class, 'generarReportePrestamo'])->name('generarReportePrestamo');
+
+
+/**equipos rutas */
 /**asddddddddddddddddddddddd */
 
 
-/**reportes */
-Route::get('/reportes/reportes', function () {  return view('reportes/reportes'); 
-});
 
-Route::get('/reportes/nuevoreporte', function () {  return view('reportes/nuevoreporte'); 
-});
+Route::get('/reportes/reportes', [ReportController::class, 'mostrarReportes'])->name('mostrarReportes');
+
+
+Route::get('/usuarios/reporte', [ReportController::class, 'mostrarFormulario'])->name('mostrarFormulario');
+Route::post('/usuarios/generar-reporte', [ReportController::class, 'generarReporte'])->name('generarReporte');
 
 
 Auth::routes();

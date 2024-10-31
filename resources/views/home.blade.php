@@ -13,7 +13,7 @@
     @section('title', 'Inicio') 
     {{-- Definimos el contenido --}}
     @section('content') 
-    <h1>hola como estas sopilote muerto</h1>
+    <h1>Bienvenidos</h1>
     @endsection
 </body>
 </html>

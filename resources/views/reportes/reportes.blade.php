@@ -1,55 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>Reportes</title>
+    <meta charset="UTF-8">
+    <title>Listado de Reportes</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .centroM {
+            margin: 2% 2%;
+        }
+        .rounded {
+            border-radius: 100%;
+        }
+        .otros {
+            display: flex;
+        }
+    </style>
 </head>
-@extends('layouts.app')
+<body>
+    @extends('layouts.app')
 
-@section('title','Clientes')
+    @section('title', 'Reportes')
 
-@section('content')
-<h1 class="fw-bold">Reportes</h1>
-<h5 class="fw-bold">Lista de todos los reportes</h5>
-<hr>
-<div>
-    <div class="centroM otros">
-        <div style="margin-left: auto;">
-        <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-            <button class="btn btn-dark" type="submit">Buscar</button>
-        </form>
+    @section('content')
+    <h1 class="fw-bold">Listado de Reportes</h1>
+    <hr>
+    
+    <div class="centroM">
+        <table class="table table-striped table-bordered mt-2">
+            <thead>
+                <tr>
+                    <th class="bg-dark text-white">ID del Reporte</th>
+                    <th class="bg-dark text-white">Nombre del Administrador</th>
+                    <th class="bg-dark text-white">Tipo</th>
+                    <th class="bg-dark text-white">Fecha de Generación</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($reportes as $reporte)
+                    <tr>
+                        <td>{{ $reporte->id }}</td>
+                        <td>{{ $reporte->administrador->nombre }}</td>
+                        <td>{{ $reporte->tipo }}</td>
+                        <td>{{ $reporte->fecha_generacion }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
-</div>
-<div class="centroM">
-    <table class="table table-striped table-bordered mt-2">
-        <thead>
-        <tr>
-            <th class="bg-dark text-white" >ID</th>
-            <th class="bg-dark text-white" >Prestamo</th>
-            <th class="bg-dark text-white" >Equipo</th>
-            <th class="bg-dark text-white" >Fecha de reportes</th>
-            <th class="bg-dark text-white" >Descripcion</th>
-            <th class="bg-dark text-white" >Admin</th>
-            <th class="bg-dark text-white" >ACCIONES</th>
-        </tr>
-    </thead>
-</thead>
-<tbody>
-    
-    <tr>
-        <td>2</td>
-        <td>3</td>
-        <td>laptop</td>
-        <td>32/12/2024</td>
-        <td>rpeote de el equipo que se presto</td>
-        <td>Josue Pineda</td>
 
-        <td>
-            <a class="btn btn-warning btn-sm text-white " href="/reportes/nuevoreporte">Editar</a>
-            <button class="btn btn-danger btn-sm">Eliminar</button>                    
-        </td>
-    </tr>
-    
+    @endsection
 
-</tbody>
-
-</table>
-@endsection
+    @section('scripts')
+    {{-- SweetAlert --}}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- JS --}}
+    <script src="{{ asset('js/product.js') }}"></script>
+    @endsection
+</body>
+</html>
